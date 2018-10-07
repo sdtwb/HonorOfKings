@@ -1,5 +1,8 @@
-package com.test;
+package com.main;
 import java.util.*;
+import org.apache.log4j.Logger;
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Level;
 
 /**
  * 
@@ -46,7 +49,7 @@ public class Main {
      * 按照题目的要求格式输出
      */
     public void print() {//按照题目的要求格式输出
-    	
+
     	System.out.println(herroStillExist());
     	System.out.println((int)herroAndFollow1.get(0).health);
     	System.out.print(herroAndFollow1.size()- 1);
@@ -69,9 +72,10 @@ public class Main {
      * @param args 没有输入
      */
 	public static void main(String[] args) {
-	        
-		  //Scanner sc= new Scanner(System.in);
-		 // Main ma= new Main();
+    	
+    	    Logger logger= Logger.getLogger(Main.class);
+    	   logger.setLevel(Level.TRACE);
+    	   logger.trace("程序开始");
 	       Scanner scanner= new Scanner(System.in);
 	       Main mainclass= new Main();
  
@@ -84,6 +88,8 @@ public class Main {
            while((n--)!= 0) {
         	   String operator= scanner.next();
         	
+        	   if(!operator.equals("summon")&&!operator.equals("attack")&&!operator.equals("end"))
+        		   logger.warn("输入不合法");
         	   if(operator.equals("summon")) { 
   
         		   int position = scanner.nextInt();
@@ -157,5 +163,6 @@ public class Main {
            
 	    mainclass.print();
 	    scanner.close();
+	    logger.trace("程序结束");
 	}
 }
